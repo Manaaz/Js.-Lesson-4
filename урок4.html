@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru" >
+<head>
+    <meta charset="utf-8">
+    <title>Lesson 4.</title>
+</head>
+<body>
+
+    <p>Hi! Lesson 4.</p>     
+    <script>
+        
+        alert("Результат выполнения заданий выводится в консоль!");
+    	
+        ///////////////////////////////
+        //Задание 1
+        var resultStructure = {
+            number:     0,                
+            units:      0,
+            tens:       0,
+            hundreds:   0,
+            error:      "",
+            
+            getValues: function(number) {
+                if (number > 999 || number <= 0) {
+                    this.error = "Некорректное число: "+number+". Число должно быть > 0 и < 999.";
+                } else {
+                    this.number     = number;
+                    this.hundreds   = Math.floor(number/100);
+                    this.tens       = Math.floor((number - (this.hundreds * 100)) / 10 );
+                    this.units      = Math.floor(number - ((this.hundreds * 100) + (this.tens * 10)));
+                    this.error = "";
+                }          
+            }         
+        }
+        
+        resultStructure.getValues(121);
+        if (resultStructure.error == "") {
+            console.log("Число: "+resultStructure.number + ", Сотни: "+resultStructure.hundreds + ", десятки: "+ resultStructure.tens + ", единицы: "+ resultStructure.units);
+        } else {
+            console.log(resultStructure.error);
+        }
+        
+        resultStructure.getValues(999);
+        if (resultStructure.error == "") {
+            console.log("Число: "+resultStructure.number + ", Сотни: "+resultStructure.hundreds + ", десятки: "+ resultStructure.tens + ", единицы: "+ resultStructure.units);
+        } else {
+            console.log(resultStructure.error);
+        }
+        
+        resultStructure.getValues(0);
+        if (resultStructure.error == "") {
+            console.log("Число: "+resultStructure.number + ", Сотни: "+resultStructure.hundreds + ", десятки: "+ resultStructure.tens + ", единицы: "+ resultStructure.units);
+        } else {
+            console.log(resultStructure.error);
+        }
+        
+        resultStructure.getValues(1000);
+        if (resultStructure.error == "") {
+            console.log("Число: "+resultStructure.number + ", Сотни: "+resultStructure.hundreds + ", десятки: "+ resultStructure.tens + ", единицы: "+ resultStructure.units);
+        } else {
+            console.log(resultStructure.error);
+        }
+        
+        ///////////////////////////////
+        //Задание 2-3
+        console.log("///////////////////////////////");
+        console.log("Задание 2.	Продолжить работу с интернет-магазином:"+
+                    "a.	В прошлом домашнем задании вы реализовали корзину на базе массивов. Какими объектами можно заменить их элементы?"+
+                    "b.	Реализуйте такие объекты."+
+                    "c.	Перенести функционал подсчета корзины на объектно-ориентированную базу");
+        console.log("///////////////////////////////");
+        console.log("Задание 3. Подумать над глобальными сущностями. - Добавил сущность item. Может использоваться в любой части сайта.");
+                    
+        var item = {
+            name:   "",
+            price:  "",
+            count:  0,            
+            character: "",
+            itemFill: function(data){
+                this.name       = data[0];
+                this.price      = data[1];
+                this.count      = data[2];
+                this.character  = data[3];
+            }
+        }
+        var basket = {
+            items: [],
+            totalItems: 0,
+            summ: 0,
+            addItem: function(item){
+                this.items.push(item);
+                console.log("Добавлен товар: " + item.name + ", "+item.character+ ", в количестве: "+item.count + ", с ценой за ед.: "+item.price);
+            },
+            getSumm: function(){
+                let summLocal = 0;
+                let totalItemLocal = 0;
+                for (let i = 0; i < this.items.length; i++){ //
+                    price = this.items[i].price;
+                    count = this.items[i].count;  
+                    totalItemLocal = totalItemLocal + count;
+                    summLocal = summLocal + (count*price); //Цена * количество
+                }
+                this.totalItems = totalItemLocal;
+                this.summ = summLocal;
+            }
+        }
+        
+        item.itemFill(['Наушники', 700, 1, "Белые"]);
+        basket.addItem(item);
+        item.itemFill(['Мышка', 350, 2, "Чёрная"]);
+        basket.addItem(item);
+        item.itemFill(['Клавиатура', 450, 3, "Зелёная"]);
+        basket.addItem(item);
+        
+        basket.getSumm();
+        
+        console.log("Всего товаров в корзине: "+ basket.totalItems + ", на сумму: "+ basket.summ);
+        
+        
+    </script>
+        
+</body>
+</html>
